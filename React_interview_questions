@@ -1,0 +1,2635 @@
+->When we declare variable as let and const so that will be not property of window object.
+Only the var variable and function will be the propert of window object
+
+What is state lifting in react ?
+-> When multiple components need the same (common) data, we move that data (state) to their parent component and pass it down to the 
+children using props.That is called state lifting.
+example - 
+
+Step 1: Move state to the parent
+---------------------------------------
+function Parent() {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <>
+      <ChildA count={count} setCount={setCount} />
+      <ChildB count={count} />
+    </>
+  );
+}
+
+Step 2: Use props in children
+----------------------------------------------------------------------
+
+function ChildA({ count, setCount }) {
+  return <button onClick={() => setCount(count + 1)}>A: {count}</button>;
+}
+
+function ChildB({ count }) {
+  return <div>B: {count}</div>;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What is Map and Set
+A Map is a collection of key-value pairs, where:
+
+Keys can be any type (object, array, function, etc.)
+It maintains insertion order
+
+const map = new Map();
+
+map.set("name", "Pooja");
+map.set(1, "Number key");
+map.set(true, "Boolean key");
+
+console.log(map.get("name")); // Pooja
+
+Methods
+----------------------------------------------------------------------
+const map = new Map();
+
+map.set("name", "Pooja");
+map.set(1, "Number key");
+map.set(true, "Boolean key");
+
+console.log(map.get("name")); // Pooja
+
+What is Set?
+-----------------------------------------
+A Set is a collection of unique values only
+(No duplicates allowed)
+
+
+const set = new Set();
+
+set.add(1);
+set.add(2);
+set.add(2); // duplicate ignored
+
+console.log(set); // {1, 2}
+
+set.add(value)        // add
+set.has(value)        // check
+set.delete(value)     // remove
+set.clear()           // remove all
+set.size              // count
+
+Remove duplicates using Set
+--------------------------------------
+const arr = [1, 2, 2, 3, 4];
+const unique = [...new Set(arr)];
+
+console.log(unique); // [1, 2, 3, 4]
+
+
+
+
+
+
+
+
+Object Methods
+--------------------------------------------------------------------------------------------------------
+1)Object.keys();
+->It will create array of object keys
+2)Object.values();
+-> It will create array of values
+
+
+In function in js
+-------------------------------------------------------------------------------
+Because JavaScript functions:
+    ->Accept any number of arguments
+    ->Missing ones → undefined
+    ->Extra ones → ignored
+
+Array methods
+---------------------------------------------------------------------------------------------
+1)length -> return length of array
+2) toString() = convert array into string by comma separated. .toString();
+3) join -> convet array into string and join the array by specified delimeter. join("|")
+4)concat -> merge two or more arrays.concat(arr1,arr2);
+5) flat -> flatten the array means convert nested array into single array..flat(Infinity)
+6) push -> push the element into end of the array. it modifies the existing array.push(10)
+7) unshift -> add element into the front of an array.a.unshift(10, 20);
+8) shift -> remove the element from the front of an array.
+9) pop -> remove the element from the end of an array. => arr.pop();
+10)spilce -> it remove and add element fron an array
+syntax - a.splice(start,count,newelement)
+start - starting index -> from where to start 
+count -> How much we want to delete
+
+11)slice -> It does not alter the original array.it extract the element from an array 
+syntax -> arr.slice(start,end)
+start -> start index - including
+end -> last index -> excluding
+
+12) some(()=>{}) => This is array inbuilt method.
+i)it accept the callback function as an argument.that callback iterate the every element of an array.
+ii) tha callback function have condition.
+iii) it returns true or false.
+iv) it checks wheather  at least one element of an array satisfied the condition then it returns true.
+
+13) every(()=>{}) -  This is array inbuilt method.
+i)it accept the callback function as an argument.that callback iterate the every element of an array.
+ii) tha callback function have condition.
+iii) it returns true or false.
+iv) If all element of an array satisfied the condition then it returns true.
+
+
+4) forEach and map
+------------------------------------
+map - If you need a new array, use map.
+
+forEach - It accept one callbakc function.the function iterate every element of an array. 
+It used for suppose we want to perform any action on each element of an array.
+It does not return new array and does not modify original array
+ 
+
+
+
+
+What is NaN ?
+-> Not a number means undefined + Number
+
+The programms for practice
+-----------------------------------------------------------------
+
+1) reverse string
+
+let str = "hello world JS";
+
+let arr = str.split(" ");
+let rev = arr.reverse();
+let str1 = rev.join(" ");
+console.log(str1);
+
+2) capital first letter
+------------------------------------------------
+let str = "javascript is fun";
+let str2 = ';'
+for(let i= 0; i<str.length;i++){
+    if(i == 0){
+      str2 = str[i].toUpperCase();  
+    }else{
+        str2 = str2 + str[i];
+    }
+}
+console.log(str2);
+
+
+3) return duplicate array Elements
+let arr = [1,2,3,2,1,4,5,4];
+
+let arr2 = [];
+let seen = [];
+for(let i of arr){
+    if(!arr2.includes(i)){
+        arr2.push(i);
+    }else{
+        seen.push(i);
+    }
+
+}
+console.log(seen);
+1) Factorial
+---------------------------------------------------
+
+function fact(n){
+   if(n === 1 || n ===0){
+       return 1;
+   }
+   
+   return n * fact(n - 1);
+}
+
+console.log(fact(5));
+
+
+
+2)  Question: You are given a nested array (e.g., [[1, 2], [3, [4, 5]]]). Write a function that flattens the array to a single level (e.g., [1, 2, 3, 4, 5]) and then sorts it in ascending order.
+  Objective: Assess the ability to manipulate arrays and recursion.
+
+    answer -> 
+    1) 
+    function flat(arr){
+        let result = [];
+        function recurse(subArr){
+            for(let i=0;i<subArr.length;i++){
+                if(Array.isArray(subArr[i])){
+                    recurse(subArr[i])
+                }else{
+                    result.push(subArr[i]);
+                }
+            }
+        }
+        recurse(arr);
+        return result;
+    }
+    console.log(flat(arr));
+
+
+another option 
+--------------------------------------------------------------------------------------
+const arr = [1,[2,3],[4,[5,6],[7]],8];
+
+let result = [];
+[ 2, 3 ]
+function flatten(subArr){
+  
+  for(let i = 0;i<subArr.length;i++){
+    if(Array.isArray(subArr[i])){
+        flatten(subArr[i]);
+    }else{
+      result.push(subArr[i]);
+    }
+  }
+  return result;
+}
+console.log(flatten(arr));
+
+3) count vowels in string
+-------------------------------------------------------
+let str = "geeksforgeeks portal POOJA";
+console.log(str.length);
+let vowels = ['a','e','i','o','u'];
+
+function countVowels(data){
+    let count = 0
+    let dataL = data.toLowerCase();
+    for(let i = 0;i<dataL.length;i++){
+        if(vowels.includes(dataL[i])){
+           count++;
+        }
+       
+    }
+     return count;
+}
+
+console.log(countVowels(str));
+
+
+
+
+1) Write b program to make polyfill for map methods
+->-----------------------------------------------------------
+Array.prototype.map = function(callback){
+    const resultArray = [];
+    for(let i = 0;i< this.length;i++){
+        const ar = callback(this[i],i,this);
+        resultArray.push(ar);
+    }
+    return resultArray;
+}
+
+const arr1 = [1,2,3,4,5];
+const arr2 = arr1.map(function(x){
+    return x*x;
+});
+console.log(arr2);
+Output => [1,4,9,16,25];
+
+
+2) write program tom make polyfill for filter method
+------------------------------------------------------------------
+-> Filter is inbuilt method. 
+It is pure function.
+It always create new array and does not modify the original array.
+filter is accept callback function and iterate every element of an array we passed the condition in filter method if condition is satisfied
+then element enters into array otherwise skip.
+
+
+Array.prototype.filter = function(callback){
+    const resultArray = [];
+    for(let i = 0;i< this.length;i++){
+        const ar = callback(this[i],i,this);
+        if(ar){
+            resultArray.push(ar);
+        }
+        
+    }
+    return resultArray;
+}
+
+const arr1 = [1,4,9,16,25];
+const arr2 = arr1.filter(function(x){
+    if(x%2 == 0){
+        return x;
+    }
+});
+console.log(arr2);
+output => [4,16]
+
+polyfills for reduce
+--------------------------------------------------------------
+Array.prototype.myreduce = function(callback,initialValue){
+  let accum = initialValue;
+  for(let i = 0;i<this.length;i++){
+    accum =  callback(accum,this[i],i,this);
+  }
+  return accum;
+} 
+
+
+const arr = [8,13,15,4,18];
+
+const ar1 = arr.myreduce((acc,num,i,arr)=>{
+  acc = acc + num;
+  return acc;
+},0)
+
+console.log(ar1);
+
+3) Reduce method -> Reduce is  array method it accept two parameter one is function and other initial value.
+reduce means convert Array into single value.
+it reduces array into single value
+
+i) Reduce is reduces array into single value
+ii) Accumulator holds the result.
+iii) return Accumulator every time.
+iv) initial value decides the type of result  
+
+
+syntax = reduce(function(acc,currentVal,index,array){
+
+},initial_value)
+
+Sum of array 
+-----------------------
+const arr = [1,2,3,4,5];
+
+const arr1 = arr.reduce(function(acc,element,index,arr){
+    acc = acc * element;
+    return acc;
+},1)
+console.log(arr1);
+
+Convert array into object 
+-------------------------------------------
+const users = [
+  { id: 1, name: "A" },
+  { id: 2, name: "B" }
+];
+
+const user1 = users.reduce(function(acc,ele,index){
+    acc[ele.id] = ele.name;
+    return acc;
+},{})
+console.log(user1);
+
+
+Polyfills for forEach
+-------------------------------------------------------------------------------------------------------
+
+Array.prototype.customForeach = function (callback){
+    for(let i =0;i<this.length;i++){
+        console.log(callback(this[i]));
+    }
+}
+
+
+const arr = [1,2,3,4,5,6];
+
+arr.customForeach((x)=>{
+    return x*2;
+})
+    
+
+
+3) Count occurance of each element in array
+--------------------------------------------------------------------------------------------------------
+const arr = [1,2,3,1,1,4,2,6];
+const obj = {}
+
+for(let i of arr){
+    if(obj[i]){
+        obj[i] = obj[i] + 1;
+    }else{
+        obj[i] = 1;
+    }
+}
+
+console.log(obj);
+4) Return first repeated  element in array
+--------------------------------------------------------------------------------------------------
+const arr = [1,2,3,1,1,4,2,6];
+const obj = {}
+var a;
+for(let i of arr){
+    if(obj[i]){
+        obj[i] = obj[i] + 1;
+    }else{
+        obj[i] = 1;
+    }
+}
+for(let j in obj){
+    if(obj[j] == 1 ){
+      a = j;
+      break;
+    }
+}
+console.log(obj);
+console.log(a);
+
+5) Remove the duplicate from array
+---------------------------------------------------------------------------------------------------
+const arr = [1,2,3,1,1,4,2,6];
+const arr2 = [];
+
+for(let i of arr){
+    if(!arr2.includes(i)){
+        arr2.push(i);
+    }
+}
+console.log(arr2);
+using filter
+------------------------------------------------------------------
+const arr = [1,2,3,1,1,4,2,6];
+
+
+const arr2 = arr.filter((ele,index,arr)=>{
+    if(arr.indexOf(ele) == index){
+        return ele;
+    }
+});
+
+console.log(arr2);
+
+
+-----------------------------------------------------------------------------------------------
+
+what is object. freeze,seal and delete
+----------------------------------------------------------------------------------------------
+Object.freeze
+-> We canot delete the property
+we can not changed the Property
+we can not chnage the value of existing  property
+we can not add new properties
+but nested object still mutable
+
+Object.seal
+--------------------------
+We can not delete
+we can not add new property
+we can only change the value of existing property.
+but nested object still mutable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The example of callback
+---------------------------------
+function getUser(callback){
+    setTimeout(()=>{
+        callback({id:1,name:"Pooja"});
+    },1000)
+}
+
+function getPosts(userId,callback){
+    setTimeout(()=>{
+        callback({id:1,title:"The posts data"});
+    },1000)
+}
+
+function getComment(postId,callback){
+    setTimeout(()=>{
+        callback({id:1,comment:"The first commet"})
+    },1000);
+}
+
+getUser((userId)=>{
+    getPosts(userId.id,(posts)=>{
+       getComment(posts,(comment)=>{
+           console.log(`The user of ${userId.name} is post is ${posts.title} and comment is ${comment.comment}`);
+       })
+    }
+
+
+
+Example of promises
+-----------------------------------------------------------------------------------------------------------
+
+In promises the .finally() block will always run if promise will resolve and reject.
+It work in order of nesting. It work from inner to outer
+
+
+function getUser(data){
+    let user = new Promise((res,rej)=>{
+        setTimeout(()=>{
+            success = true;
+            if(success){
+                res(data);
+            }else{
+                rej("The data is rejected");
+            }
+        },1000)
+    });
+    return user;
+}
+
+function getPost(userId,posts){
+    let postData = new Promise((res,rej)=>{
+        setTimeout(()=>{
+            success = false;
+            if(success){
+                res(posts);
+            }
+            else{
+                rej("The post data is falied");
+            }
+        },1000)
+    })
+    return postData;
+}
+
+function getComment(postId,comments){
+    let comment = new Promise((res,rej)=>{
+        setTimeout(()=>{
+            success = true;
+            if(success){
+                res(comments);
+            }else{
+                rej("The comment data failed");
+            }
+        },1000);
+    });
+    return comment;
+}
+
+
+
+
+getUser({id:1,name:"Pooja"})
+    .then((res)=>{
+        console.log("first data user is fetching");
+        return getPost(res.name,{id:1,title:"Post 1"})
+            .then((res1)=>{
+                console.log(`The user ${res.name} and their post is 
+                ${res1.title}`);
+                return getComment(res1.title,{id:1,comment:"The first one"})
+                    .then((res2)=>{
+                        console.log(`The user of ${res.name} and their post is ${res1.title} and the comment is ${res2.comment}`);
+                    })
+                    .catch((rej3)=>{
+                        console.log("The error in failed data")
+                    })
+                    .finally(()=>{
+                        console.log("the final data completed");
+                    });
+                
+            })
+            .catch((rej1)=>{
+              console.log(rej1)  
+            })
+            .finally(()=>{
+                console.log("the second  data completed");
+        });
+    })
+    .catch((rej)=>{
+        console.log(rej);
+    })
+    .finally(()=>{
+        console.log("the first data completed");
+    });
+    
+    
+    
+Example of async/await
+-------------------------------------------------------------------------------------------------------------------------------
+// Online Javascript Editor for free
+// Write, Edit and Run your Javascript code using JS Online Compiler
+
+
+
+function getUser(data){
+    let user = new Promise((res,rej)=>{
+        setTimeout(()=>{
+            success = true;
+            if(success){
+                res(data);
+            }else{
+                rej("The data is rejected");
+            }
+        },1000)
+    });
+    return user;
+}
+
+function getPost(userId,posts){
+    let postData = new Promise((res,rej)=>{
+        setTimeout(()=>{
+            success = true;
+            if(success){
+                res(posts);
+            }
+            else{
+                rej("The post data is falied");
+            }
+        },1000)
+    })
+    return postData;
+}
+
+function getComment(postId,comments){
+    let comment = new Promise((res,rej)=>{
+        setTimeout(()=>{
+            success = true;
+            if(success){
+                res(comments);
+            }else{
+                rej("The comment data failed");
+            }
+        },1000);
+    });
+    return comment;
+}
+
+async function fetchData(){
+    try{
+       let user = await getUser({id:1,name:"Pooja Lavhat"}) 
+       console.log("The first data is");
+       try{
+           let post = await getPost(user.name,{id:1,title:"post one"});
+          try{
+              let comment = await getComment(post.title,{id:1,comment:"the first data is comment"})
+             console.log(`The user is ${user.name} and their post is ${post.title}a dn comment is ${comment.comment}`);
+          }
+          catch(commentError){
+              console.log(commentError);
+          }
+       }
+      catch(postError){
+          console.log(postError);
+      }
+      finally{
+        console.log("the second data fetched")
+    }
+    }catch(userError){
+        console.log(userError);
+    }
+    finally{
+        console.log("the final data fetched")
+    }
+}
+ fetchData();   
+
+ ---------------------------------------------------------------------------------------------------------------------
+
+
+promise.all() => It accept array of promises.If any one of them reject then al promise will reject
+promise.any() => It accept array of promises.If any one of them success then it success and ignore all failure.
+
+Sorting in array
+-----------------------------------
+const fruits = ['banana','apple','cherry'];
+
+const sortFruits = fruits.sort();
+
+const numbers = [10, 5, 2, 100];
+
+// this will happen becuase the sort convert numbres into string and compare the their UTF values
+// Sp comparing the numbers we need to passed the compare callback function in sort
+
+const sortNum = numbers.sort((a,b)=>{
+    return (b - a);
+})
+console.log(sortNum);
+
+
+
+React topics
+--------------------------
+1) Debouncing 
+Debouncing = Pause the function (like API call) until the user stops typing.
+It pauses the frequently call api.
+
+When user trying to search something on search box and user removes the cursor then api will call so till that time api call pause.
+in Debauncing function every time we clear the previous timeout.and start new timer every time
+
+Debauncing is the technique that is ensures the functions are not called rapidly.
+it ensures the functions are not Triggered rapidly.
+it execute the functions only once after 
+it execute the functions only once after specific time period .
+It send Api request when user stops the interacting with the page.
+
+
+
+function debounce(func, delay) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}
+
+// Usage
+const handleInput = debounce(() => {
+  console.log("Search triggered!");
+}, 300);
+
+document.getElementById("searchBox").addEventListener("input", handleInput);
+
+ Step-by-Step Breakdown
+ ----------------------------------------
+1. function debounce(func, delay)
+You pass in:
+func: the function you want to delay (like an AJAX call).
+delay: how long to wait (in milliseconds) after the last event.
+2. let timer;
+This stores the ID of the timeout so we can cancel it if needed.
+3. return function (...args)
+This returns a new function that wraps your original func.
+...args means it can accept any number of arguments (like search term, event, etc.).
+4. clearTimeout(timer);
+If the user types again before the delay is over, cancel the previous timer.
+5. timer = setTimeout(() => { ... }, delay);
+Start a new timer. If no new input comes in during the delay, the function inside will run.
+6. func.apply(this, args);
+This is where your original function (func) is finally called.
+apply(this, args):
+this: keeps the correct context (important if you're using this inside func)
+args: passes all the original arguments to func
+
+
+Visual Analogy
+---------------------------------------
+Imagine you're typing in a search box:
+
+You type: P, Po, Poo, Pooj, Pooja
+Without debounce: 5 AJAX calls!
+With debounce: Only 1 call, after you stop typing for 1 second.
+
+
+
+2) Function reference
+-------------------------------
+The function reference means we assigne function to variable then we can call it whenever we want.
+in javascript when we write func with () then it will execute immediatly but don't want to execute immediatly we want to call whenever we want
+it meabs we want delay in execution then we give reference to variable.
+
+
+
+Clover infoech - and Logic Loop company
+------------------------------------
+what is the  implicit and explicit binding
+-> Implicit binding -> It means when we create the method in object and that method are reger to that object so we can called method using object
+so it called implicit binding.
+
+const user = {
+  name: "Pooja",
+  greet() {
+    console.log(`Hello, ${this.name}`);
+  }
+};
+
+user.greet(); // "Hello, Pooja"
+
+Explicit binding -> When we manually set the value of this using call(),apply() and bind then this is explicit binding.
+
+
+function greet() {
+  console.log(`Hello, ${this.name}`);
+}
+
+const user = {
+  name: "Pooja"
+};
+
+greet.call(user); // "Hello, Pooja
+
+1) What are the data types in javascript
+--------------------------------------------------------------------------------------
+-> Primitive and Non-Primitive data types
+-> Primitive data types - String, Number, Boolean, Null, Undefined, Symbol, and BigInt.
+Primitive data types is immutable means once we declared variable and assigned the value after that
+we can not change the value.
+
+In JavaScript, understanding memory assignment and value immutability in primitive data types is crucial because they behave differently than non-primitive (reference) types like objects or arrays. Let me explain both concepts in detail:
+
+1. Memory Assignment in Primitive Data Types
+
+Primitive data types in JavaScript include:
+
+String
+
+Number
+
+BigInt
+
+Boolean
+
+undefined
+
+Symbol
+
+null
+
+When a primitive value is assigned to a variable or passed to a function, the actual value is copied into that variable. Here's what happens under the hood:
+
+Memory allocation: JavaScript stores the value directly in memory for primitive types. When you assign a primitive value to another variable, JavaScript creates a copy of that value, not a reference to the same value in memory.
+
+For example:
+
+let x = 10;  // 'x' stores the value 10
+let y = x;   // 'y' gets a copy of the value 10
+y = 20;      // 'y' is now 20, but 'x' is still 10
+
+
+In this case, x and y are independent of each other. Changing the value of y does not affect x because they are stored in separate memory locations.
+
+This is pass-by-value behavior: a new copy of the value is made.
+
+2. Immutability of Primitive Values
+
+A primitive value is immutable in JavaScript, meaning once it is assigned, its value cannot be changed. If you try to "change" a primitive value, you're actually creating a new value instead.
+
+For example, with strings (which are primitives):
+
+let name = "Alice";
+name = "Bob"; // This doesn't change the original "Alice" string; it creates a new string "Bob"
+
+
+In this case:
+
+The original string "Alice" remains unchanged in memory.
+
+The variable name now points to a new memory location holding the string "Bob".
+
+So, even though you might think you're modifying the value, you're really just assigning a new value to the variable.
+
+3. Comparison Between Primitives and Reference Types
+
+In contrast, reference types (like arrays or objects) store a reference (or memory address) to the data, not the actual value. When you assign an object to another variable, both variables point to the same memory location, and changes made through one variable will affect the other.
+
+For example:
+
+let arr1 = [1, 2, 3];
+let arr2 = arr1;    // 'arr2' is now pointing to the same memory location as 'arr1'
+arr2[0] = 100;      // This changes the value of arr1[0] as well
+console.log(arr1);   // Output: [100, 2, 3]
+
+
+Here, arr1 and arr2 are references to the same array, so modifying one affects the other.
+
+Summary
+
+-> Memory Assignment: 
+    1)For primitives, the value is copied. 
+    2) For Non-Primitive types (reference) , the memory address (reference) is copied.
+
+Immutability: Primitive values can't be modified once they're assigned. Instead, new values are created if you "change" them. Reference types, on the other hand, can be modified because both variables point to the same object in memory.
+
+Let me know if you want more examples or further clarification!
+
+Yes, exactly! You got it right. Let's break it down step by step:
+
+1. First Line: let name = "Alice";
+
+When you first declare name and assign it the value "Alice", JavaScript allocates memory for the string "Alice".
+
+The variable name is now holding a reference to that memory location where the string "Alice" is stored.
+
+2. Second Line: name = "Bob";
+
+Now, when you assign "Bob" to name, JavaScript doesn't modify the string "Alice". Instead, it creates a new memory location for the string "Bob".
+
+The variable name is now updated to point to the memory location where "Bob" is stored, replacing the reference to "Alice".
+
+Visualizing the Memory
+
+Step 1: let name = "Alice";
+
+Memory:
+
+name -> "Alice" (allocated memory location 1)
+
+
+Step 2: name = "Bob";
+
+Memory:
+
+name -> "Bob" (allocated memory location 2)
+
+
+(The memory for "Alice" is still there, but the variable name now points to the new memory for "Bob".)
+
+Key Points:
+
+When you assign "Alice" to name, it gets stored in one location.
+
+When you reassign "Bob" to name, it creates a new memory location for "Bob", and name now references that new location.
+
+Memory for "Alice" is unchanged, but name no longer refers to it—it now points to "Bob".
+
+So, after the reassignment, the two strings ("Alice" and "Bob") are in separate memory locations, and the variable name now points to the new string "Bob".
+
+Primitive values:
+
+When you assign or reassign a primitive (like a string, number, boolean), a new copy is created in a new memory location.
+
+Variables hold the actual value, so changing one variable’s value does not affect others.
+
+Non-primitive values (objects, arrays, functions):
+
+Variables hold a reference to the same memory location where the object is stored.
+
+Assigning a non-primitive to another variable copies the reference, not the actual object.
+
+So, changing the object via one variable affects all variables referencing that object.
+
+
+
+Event Propgation
+----------------------------------------------------------------------------------------------------
+Event proppgation menas is determined in which order of element receives the event.
+When we create any event 
+
+
+
+
+
+Packages in react
+=====================================================================================
+1) Axios – used for making API calls and handling requests/responses with interceptors.
+2) React Router – used for client-side routing and navigation between pages.
+3) Redux Toolkit – used for managing global state and API data across components.
+4) React Hook Form – used for handling form state and form submission efficiently.
+5) Yup – used for form validation with React Hook Form.
+6) Material UI – used for UI components like tables, dialogs, forms, and responsive layouts.
+
+
+
+what is CSR and SSR in react
+--------------------------------------------------------
+CSR -> Server already have index.html server send empty index.html to browser ans react take controll using createRoot() and render
+componenet into the html or into browser. so in client side rendering  browser loads the js and React uses createRoot and render comp
+
+✅ Client-Side Rendering (CSR)
+------------------------------------------------------------------------------------------
+1) Server has index.html (mostly empty)
+2)Browser downloads JS
+3)React uses createRoot()
+4)React takes control of index.html
+5)React renders components in the browser
+
+
+This is less SEO friendly
+loading speed is low
+
+
+SSR - Server have empty index.html. Server renders the react comp into index.html and send the ready HTML to browser
+then browser render the index.html.browser uses hydrateRoot()
+
+✅ Server-Side Rendering (SSR)
+-------------------------------------------------------------------------------
+Server has index.html template
+Server runs React components
+Server renders components into HTML
+Server injects HTML into index.html
+Server sends ready HTML to browser
+Browser runs hydrateRoot() to add interactivity
+
+Advantage
+------------------------------------------------------------------
+It is fully SEO friendly
+page loading is very high.
+
+SEO means search engine Optimization -> when we search any site name in Google then google search keyword in site index.html 
+-------------------------------------------------------------------------------------------------------------------------
+CSR → Browser renders HTML
+
+SSR → Server renders HTML
+
+createRoot → create DOM
+
+hydrateRoot → reuse DOM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------Prototye and Polyfills-------------------------------------------------------------------------------------------------------
+
+Prototype -> Purpose -> Shared the methods of one object into another object , Inseatd of repeating common methods we wrote only once and Shared
+it saves teh memroy.
+In javascript every thing is object
+When we create object then JS engine add one hidden property or link that is prototypr.not jst object when we write function that also have
+one property is prototype that points to prototype object.
+syntax - in object -> obj.__proto__ = function_name.prototype
+So when we create the object JS engine automatically add the hidden property and attached to that object 
+So here is example we can share the method of other object into another object.
+
+Prototypal inheritance -
+
+the object can inherit the method of another object 
+When we trying to access the any propertirs and methods first it will check into self object after that their prototype so this is the chain
+
+example - 
+-----------------------------------------------------------------------------------------------------------------------------
+const obj = {
+    name : "Pooja Lavhat",
+    age: "31",
+    getName:function () {
+        console.log(`${this.name} and age is ${this.age}`)
+    }
+}
+const obj1 = {
+    name : "Gaurav Nakhale",
+    age:"29"
+}
+obj1.__proto__ = obj;
+console.log(obj1.getName());
+
+
+const obj = {
+    name:"Pooja",
+    displayName:function(){
+        console.log(this.name);
+    }
+}
+
+const obj2 = {
+    name:"Komal"
+}
+
+obj2.__proto__ = obj;
+obj2.displayName();
+
+
+
+Polyfills
+---------------------------------------------------------------------------------------
+Old browser can not support ES6 concept ,can not support new features or web api like promise,fetchapi,Array.prototype.includes,Array.find, Array.findIndex
+Object.assign,Object.entries, Object.values
+
+So Polyfills means add modern features or modern web api to iuntime so that old browser can also use web api
+Transpiler(Babel) is just convert old syntax into new syntax it not used feature.
+example - const x = () => {} => function x(){}
+
+
+🔹 What is a Polyfill?
+------------------------------------------------------------------------
+A polyfill is code that adds missing JavaScript features in older browsers.
+
+Before adding, we check if the feature exists.
+
+Polyfills are usually written on prototype.
+
+🔹 Why polyfills are written on prototype?
+-----------------------------------------------------
+prototype allows method sharing.
+
+One method is shared by all instances.
+
+Saves memory and matches how native JS methods work.
+
+🔹 Prototype Chain (core idea)
+---------------------------------------------------------------------------
+When accessing a property/method, JavaScript checks:
+
+object → its prototype → Object.prototype → null
+
+
+🔹 Array prototype chain example
+----------------------------------------
+arr
+ ↓
+Array.prototype
+ ↓
+Object.prototype
+ ↓
+null
+
+🔹 Function prototype chain
+------------------------------------------------
+function
+ ↓
+Function.prototype
+ ↓
+Object.prototype
+ ↓
+null
+
+
+🔹 prototype vs __proto__ (confusion killer)
+---------------------------------------
+prototype
+->================
+Property of constructor functions
+
+Used to define shared methods
+
+__proto__
+========================================
+Hidden/internal property of objects
+
+Points to the object’s parent prototype
+
+p1.__proto__ === Person.prototype // true
+
+🔹 What happens with new Person()
+----------------------------------------
+const p1 = new Person("Pooja");
+---------------------------------------------
+
+JS internally does:
+----------------
+Creates empty object
+Links prototype
+p1.__proto__ = Person.prototype
+Calls constructor
+
+
+Prototype chain is used every time JavaScript accesses a property or method on an object.
+
+Using prototype avoids code duplication by allowing all instances to share common methods through the prototype chain.
+----------------------------------------------------------------------------------------------------------------------
+JavaScript uses prototype-based inheritance where objects access shared methods via the prototype chain, 
+and __proto__ links an object to its constructor’s prototype.
+
+✅ 1️⃣ Best & modern way: Object.create() (RECOMMENDED)
+------------------------------------------------------------------------
+This is the safe alternative to modifying __proto__.
+const obj1 = {
+  displayName: function () {
+    console.log(this.name);
+  }
+};
+
+const obj2 = Object.create(obj1);
+obj2.name = "Komal";
+
+obj2.displayName(); // Komal
+
+
+✔️ What happens internally
+----------------------------------------------
+obj2 → obj1 → Object.prototype → null
+
+
+displayName is shared
+this correctly refers to obj2
+No direct __proto__ manipulation
+
+
+Example of object creation and method sharing
+----------------------------------------------------------
+
+const obj1 = {
+    name:"pooja",
+    displayName:function(){
+        console.log(`My name is ${this.name}`);
+    }
+}
+
+const obj2 = Object.create(obj1);
+obj2.name = "komal";
+obj2.displayName();
+
+
+function Person(fullname){
+    this.name = fullname;
+}
+
+Person.prototype.displayName = function(){
+    console.log(`My name is ${this.name}`)
+}
+
+
+
+const ob1 = new Person("Avi");
+const ob2 = new Person("pooja");
+
+ob1.displayName();
+
+
+
+3) IIFE - Immedialtely invoked function expression
+------------------------------------------------------------------
+This is function is immediately invoked.
+(function(){})();
+
+callback(2,1,[1,2,3])
+----------------------------------------
+JS internally does 
+is Same as 
+(x => x * 2)(2,1,[1,2,3])
+Javascript internally doing this we do not doing this.
+
+map receives a callback function and internally invokes it for each element; the function is passed, not immediately executed.
+
+--------------------------------------------------------------------------------------------------------
+
+
+2)  What is this keyword in js ( this ki values depend krti hai ki humne function ko kaise call kiya hai na ki kaise defined or declare ki hai)
+-------------------------------------------------------------------------------------------------------------------------------------------------
+   Quick tip = Here is short cut to find value of this value
+   -> Find the call site.Value of this is depend on how we invoked the function or how we called the function.
+   First check what's in the left of function call.whatever in the left that will be value of this.suppose or sometimes
+   if nothing in left side then most cases it will be window object
+
+   Example
+   --------------------------------------------------------
+   function show(){
+        console.log(this.webData);
+   }
+
+   window.webData = "Pooja Lavhat";
+   show() => here output will be "Pooja lvhat" -> there is nothing in left side so it point to window object
+
+   const obj = {
+    frintendMaster : "Pooja Belkar",
+    show
+   }
+
+   obj.show();
+
+   output => So here obj is left so this is point to obj object so value will be pooja Belkar
+   
+    this is refers or represents object of current executing context.It depend on which context is running
+    The value of this in JavaScript depends on how a function is invoked  or how the function is called (runtime binding), not how it is defined.
+    1) 4 ways to call function
+    +++++++++++++++++++++++++++++++
+    ->i) direct call function
+    -------------------------------------------------------------------------------------------
+        function greet(){
+            console.log("hii pooja");
+        }
+
+    greet();
+    ii) call function using new operator
+    --------------------------------------------------------------------------------------------------
+        const obj = new greet();
+
+    iii) call function using call,apply and bind
+    ----------------------------------------------------------------------------------------------------------
+        greet.call();
+    iv) using object dot notation
+    ------------------------------------------------------------------------------------------------------------    
+    const obj2 = {
+        greet
+    }
+
+    obj2.greet();
+
+    call → Sets this and executes the function immediately, passing arguments one by one.
+    apply → Sets this and executes immediately, but arguments are passed as an array.
+    bind → Sets this but does NOT execute immediately; instead, it returns a new function with this permanently bound.
+
+    When we extract the method from object and assigne to variable then that method will be standalone function and they lose 
+    this keyword so when we call standalone function in browser non-strict mode this will be window object and strict mode will be undefined
+
+
+     2) Execution context
+    ++++++++++++++++++++++++++
+    In js there are tw types of execution 1) Memory creation or creation phase -> in this phase variables are hoisted onto the top.
+    function definition or whole function body hoisted onto the top.
+    In the time of execution pahse the code is run line by line.measn it call functions.
+    In execution phase when the function is invoked or function is called the execution context is created.
+    every time the is function is called the every time new execution ocntext is create.
+    There are two types of execution context 1) Global execution context and 2) Function exection context.
+    Global execution context is created one. One program have one glabal context.
+    so execution context is create when the function is called.
+    Execution context is area in memory where the our code executed. Its like box
+    function is invoked the execution context is create. every time when the function is called new execution context create.
+    suppose we have 20 function call then 20 execution context is created. and every exection context have object is `this` and default it 
+    refers to window object.if we ahve not set value of this object then it refers to window object.
+    If function called finished then exection context will also delete.
+
+    So differet execution context have different value of this 
+    so value of this is how our function invoked not how the function create.
+
+
+     3) 4 rules of this
+    ++++++++++++++++++++++++++++++
+    i) `this` in function will be window object if strict mode off.If strict mode is on then this will be undefined.
+
+    ii) when we called function using new keyword new test() then new empty object will created
+    -> function test(){
+        console.log(this);
+    }
+     new test();        -> new empty object will create new empty obj {}
+    so when we called function using new keyword then new empty object will create and then the function will this will point 
+    to newly created empty object
+
+    jevha pan apan new keyword ne function call krto tevha ek new empty object create hoto ani mag tya function chya aat mdhe this chi value
+    tya empty object la point krto naki tya window object la
+    ---------------------------------------------------------------------------------------------------------------------------------
+
+    Regular function this value is always depend on how we called the function and how we set the value of this bindimg
+    function showData(){
+        this.name2 = "pooja";
+        console.log(this.name2)
+        this.getName2 = function(){
+            console.log(this);
+        }
+    
+        }
+        const ab = new showData();
+        const { getName2 } = ab;
+        console.log(getName2()); 
+        here the output is global window object because we have destructured the getName2() function and its  normal regular function
+        and here we does not set the value of this so it will always point to window object but arrow function remember the this value from their lexical scope
+
+
+        function showData(){
+            this.name2 = "pooja";
+            console.log(this.name2)
+            this.getName2 = function(){
+                console.log(this.name2);
+            }
+            
+        }
+        const ab = new showData();
+        // const { getName2 } = ab;
+        console.log(ab.getName2());
+        here output will be pooja becuase we directly call function we have never destructured.
+
+    iii) Using call,apply and bind -> this is explicit bindings. the main purpose of call,apply and bind is call the function and set the 
+    value of `this` object.we set the value of this like we call the function using call,apply and bind method and pass the object so the value of this 
+    in function is set to that newly created object.
+    example -> function test(){
+            console.log(this);
+    }
+    test.call({name:"pooja"}), test.apply({name:pooja}) and  let data = bind();
+    so here we have set value of this object is {name:"pooja"}.
+    call.apply and bind is sharing methods. we can call method of one object to another object.
+    and this method is used to call the function and set the value of object.
+    so `this` will be newly passed object.
+    iv) call method of object
+        const obj = {
+            test:function(){
+                console.log("Hii")
+            }
+        }
+        obj.test() -> so when we called method uing obj dot notation then this refers to that object
+    v) Lexical scope -> Lexical scope measn we can access the variables and functions.
+    when we tryng to access the variables value firts it check the value in their surrounding scope if it is not found then found in global scope
+    let age = 20;
+    function test(){
+        console.log(age); -> this is the lexical scope of arraw function
+        const myArrow = () => {
+            console.log(age);
+        }
+
+        myArrow();
+    }
+    so when the above function is called  the arrow function will check value of age first inside arrow not found then found their parent test()
+    function if not found then find will in gloabl scope. 
+
+    4) `this` in Arrow function
+    -------------------------------------------------------
+    Arro function always remember the value of this of their enclosing lexical scope.
+    it always remember their surrounding scope this value
+    Arrow function does not have their own this. In arrow function the value of `this` will take from their lexical scope.
+    arrow function take value form their surrounding scope that is lexical scope.
+    Arrow function does not have this binding.
+    so in arrow function arrow function value will be find lexically.
+    example const arro = () => { console.log(this)} output -> window objetc
+
+
+    examples ->
+        a)
+            const myArr = () => {
+                console.log(this); 
+                //here the value of this is window object
+            }
+            myArr()  -> output - window object
+        b)
+            function showMessage(){
+                here the value of `this` is {username : "pooja"}
+                const myArr = () => {
+                    console.log(this); 
+                }
+                myArr();
+            }
+            showMessage.call({username : "pooja"}); //here the value of `this` is {username : "pooja"}
+        c)
+            const obj = {
+                message : "Hey hii message",
+                show:() => {
+                    console.log(this.message)
+                }
+            }
+            obj.show(); so here output is undefined. becuase the arraw function will take value of this from lexical scope.
+            and obj is not scope its object literal syncatx ist not global,functional and block scope.
+
+
+    so that's the defination of this is depend on how the function is invoked 
+
+    5) in addEventListener the value of this will be the element wher we have add listener
+    
+
+2)what is hoisting in javascript
+--------------------------------------------------------------------------------------------------
+-> Hoisting applies to variable and function declaration.
+hoisting is not applied to functions expressions
+-> Hoisting means javascript moves the declaration of variable and function to the top of their scope.
+We can used the variable nand functions before it has been declared.
+Hoisting applies to var,let,const and functions
+var hoisted and initialized with undefined,let and const hoisted but place in TDZ(Temporal Dead Zone) until their initialization reached.
+TDZ means Temporal dead zone its time from declaration to initialization. If we have tried to print the let and const between TDZ then we will get the 
+reference error cannot access variable before initialization.
+we declared variable with let and const then it will placed in TDZ unitil their initialization reached once the initialization reached it
+initialized with undefined.
+
+Variables and functions are hoisted.
+Variables declared with var are initialized with undefined.
+Functions (declared with function) are fully hoisted.
+let and const are hoisted but stay in the Temporal Dead Zone (TDZ) until their definition is reached.
+
+1) var
+    -> console.log(a); output = 10;
+        var a = 10;
+2) let
+-> console.log(b);  output = Reference error cannot access a before initialization
+    let b = 12;
+
+3) let c;
+    console.log(c);  output = undefined
+    c = 13;
+functions are hoisted with function expressions
+4) test();  output = "hii"
+function test(){
+    console.log("hii");
+}
+
+5) data();
+let data = function test(){
+    console.log("hii");  output = Reference error cannot access data before initialization
+}
+6) data();
+    var data = function test(){
+        console.log("hhhh);  output = TypeError: data is not a function
+    }
+7) data();
+    var data = () => {
+        console.log("yes");
+    }
+
+3) if we used arrow function and hoist on top then what will be output.
+-----------------------------------------------------------------------------------------
+    -> Arrow functions assigned to variables are not hoisted like regular functions. 
+        Only the variable declaration is hoisted, not the assignment.
+    -> Arrow functions are expressions, not declarations.
+4) javascript execution phase
+----------------------------------------------------------------------------------------
+-> JavaScript runs in two main phases:
+    i) Creation Phase (Memory Allocation)
+        -------------------------------------------
+        The JavaScript engine scans the code.
+        Variables and functions are hoisted.
+        Variables declared with var are initialized with undefined.
+        Functions (declared with function) are fully hoisted.
+        let and const are hoisted but stay in the Temporal Dead Zone (TDZ) until their definition is reached.
+    ii) Execution Phase
+        -------------------------------
+        Code is executed line by line.
+        Values are assigned, functions are invoked, and expressions are evaluated.
+
+    Call Stack
+    ------------
+        The Call Stack is where JavaScript keeps track of function calls.
+        It's LIFO (Last In, First Out).
+        When a function is called, it's pushed onto the stack.
+        When it finishes, it's popped off.
+
+        example
+        ----------------------------
+        
+        function greet() {
+        console.log("Hello");
+        }
+
+        function start() {
+        greet();
+        }
+
+        start();
+
+        start() → greet() → console.log()
+
+   
+    
+    Event Loop
+    --------------------
+        The Event Loop is the mechanism that checks if the Call Stack is empty, and if so, it pushes tasks from the Task Queue or Microtask Queue to the stack
+
+
+    Web APIs (Browser APIs)
+    --------------------------------------
+            The web api are handled by browser when call stack sees the web apis then it send to browser so browser will handle by browser
+
+            Examples:
+            ---------------------
+            i) setTimeout
+            ii) DOM events
+            iii) fetch
+            iv) localStorage
+                When you use something like setTimeout, it goes to the Web API environment, not the call stack.
+
+    Task Queue (Macrotasks) (Low priority)
+    -----------------------------
+        setTimeout
+        setInterval
+        I/O tasks
+    Microtask Queue(High priority)
+    ------------------------
+        Promises
+        MutationObserver
+
+    Example
+    --------------------------------------------------------------------------------
+    
+        console.log("Start");
+
+        setTimeout(() => {
+        console.log("Macrotask");
+        }, 0);
+
+        Promise.resolve().then(() => {
+        console.log("Microtask");
+        });
+
+        console.log("End");
+    
+    Start and End are synchronous → executed immediately.
+    Promise.then() → goes to Microtask Queue.
+    setTimeout() → goes to Macrotask Queue.
+    After the synchronous code finishes, Microtasks are executed.
+    Then the Macrotask is executed.
+
+
+5)What is strict mode
+-------------------------------------------------------
+-> Strict mode is a feature in JavaScript that was introduced in ECMAScript 5.
+when we enable strict mode js followes the strict rule which reduces the bugs
+i) Using undeclared variable -
+example-> Non-strict mode 
+ a = 9;
+console.log(a); output -> 9
+
+strict mode
+-----------------
+"use strict";
+ a = 9;
+console.log(a); output = error is a is not defined
+
+ii) Duplicating parameter in non-strict mode it take last value
+---------------------------------------------------------------------------------
+function addNums (num, num) {
+  console.log(num + num)
+}
+
+addNums(2, 3) //  output = 6;
+
+in Strict mode
+--------------------
+function addNums (num, num) {
+  console.log(num + num)
+}
+
+addNums(2, 3) //  output =  Duplicate parameter name not allowed in this context
+
+
+6) what is closure and write the code for closure
+--------------------------------------------------------------------
+6) What is this keyword in javascript
+---------------------------------------------------------------
+-> this is refers the object.this is represents the object of current executing functions.this is refers object of current executiing context.
+-> i) this is in alone - then this is refers to window object or global object. it refers object of global context.
+    example - console.log(this);
+    ii) this in functions - in regular functions the this is refers to global or window object in non-strict mode.
+        in strict mode this in function will be undefined.
+    in regular function in non-strict model this will be window object and in strict mode this will be undefined
+
+7) what will be output of below and why
+function outer (){
+    var a = 10;
+    setTimeout(()=>{
+        console.log("hii setTimeout);
+    },1000)
+
+    console.log("hello");
+}
+7) what will be output and why and want to print 0,1,2,3,4,5,6 then how ?
+function outer (){
+    var a = 10;
+    for(var i = 0;i<=5;i++){
+        setTimeout(()=>{
+            console.log(i);
+    },i * 1000)
+    }
+    console.log("hello");
+}
+8) Remove duplicate from array without using set var a = [1,2,3,4,8,3,1,4]; 
+
+8) what is VDOM why react is fast.
+9) React is library or framework and why library is different from framework
+10)what is component lifecycle in class component.
+11) what is lifecycle in hooks
+12) which lifecycle is best compared to class and function component.
+13) what are the differences types of hook in react and purpose and when to use.
+14)what is differences between useMemo and React.memo 
+15)what is the approach when you create project from scratch -> Reusable comp,custom hook
+16) how you created custom hook and how you have used ?
+17) interviewer asked me how you create lable of input in react means directly gives label or 
+create any constant object and then assigne to input i does not understand what is it they said is this reusable componenet and or ?
+
+ 
+18) const arr = [1, 2, 3, 4, 5];
+ 
+    for (var i = 0; i < arr.length; i++) {
+
+    setTimeout(function () {
+
+        console.log(i);
+
+    }, 1000);
+
+    }
+ 
+19) let x = 1;
+ 
+    if (function f() {}) {
+
+    x += typeof f;
+
+    }
+ 
+    console.log(x);
+ 
+
+20) console.log(typeof typeof 10);
+ 
+21) Question: You are given a nested array (e.g., [[1, 2], [3, [4, 5]]]). Write a function that flattens the array to a single level (e.g., [1, 2, 3, 4, 5]) and then sorts it in ascending order.
+  Objective: Assess the ability to manipulate arrays and recursion.
+
+    answer -> 
+    1) 
+    function flat(arr){
+        let result = [];
+        function recurse(subArr){
+            for(let i=0;i<subArr.length;i++){
+                if(Array.isArray(subArr[i])){
+                    recurse(subArr[i])
+                }else{
+                    result.push(subArr[i]);
+                }
+            }
+        }
+        recurse(arr);
+        return result;
+    }
+    console.log(flat(arr));
+
+
+    22) Nested flattened array
+    -------------------------------------------------------------------------------------
+    const mixedArray = [1, 
+        { a: 2 }, 
+        [3, [4, 5]], 
+        "hello", 
+        [true, [false,[null]]]
+    ];
+
+
+    function flat(arr){
+        let result = [];
+        
+        function recurse(subArr){
+            for(let i=0;i<subArr.length;i++){
+                if(Array.isArray(subArr[i])){
+                    recurse(subArr[i]);
+                }
+                else if(typeof(subArr[i])=== 'object'){
+                    if(subArr[i] === null){
+                        result.push(subArr[i]);
+                    }else{
+                        recurse(Object.values(subArr[i]));
+                    }
+                    // console.log();
+                }
+                else{
+                    result.push(subArr[i]);
+                }
+            }
+        }
+        recurse(arr);
+        return result;
+    }
+    console.log(flat(mixedArray));
+
+    ----------------------------------------------------------------------------------------------------------------------------------------
+ 
+23) Factorial using recursive function
+---------------------------------------------------------------------
+function fact(num){
+    if(num === 0 || num === 1){
+        return 1;
+    }else{
+        return num * fact(num-1);
+    }
+}
+
+console.log(fact(5));
+
+24) Sum of All Elements in a Nested Array
+----------------------------------------------------
+Input: [1, [2, [3, 4]], 5]
+Output: 15
+
+-> const arr  = [1, [2, [3, 4]], 5];
+
+ function flat(arr){
+        let result = [];
+        let sum = 0;
+        function recurse(subArr){
+            for(let i=0;i<subArr.length;i++){
+                if(Array.isArray(subArr[i])){
+                    recurse(subArr[i]);
+                }
+                else if(typeof(subArr[i]) === 'number'){
+                    sum +=subArr[i];
+                }
+                
+            }
+        }
+        recurse(arr);
+        return sum;
+    }
+    console.log(flat(arr));
+    
+
+
+26) Write a custom hook to copy text to clipboard.
+ 
+    export default function App() {
+
+    const [isCopied, copy] = useCopyToClipboard("Text to copy!");
+
+    return <button onClick={copy}>{isCopied ? "Copied!" : "Copy"}</button>;
+
+    }
+
+
+
+usenavigate and Navigate 
+------------------------------------
+
+✅ useNavigate() — Programmatic Navigation
+Used when you want to navigate in response to user actions or events.
+
+Works inside functions, hooks, or event handlers.
+
+Triggered by logic like button clicks, form submissions, or after async calls.
+-------------------------------------------------------------------
+import { useNavigate } from 'react-router-dom';
+
+function Login() {
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    const success = await doLogin();
+    if (success) {
+      navigate('/dashboard'); // navigate after login
+    }
+  };
+
+  return <button onClick={handleLogin}>Login</button>;
+}
+
+
+<Navigate /> — Conditional Rendering Navigation
+----------------------------------------------------
+Used to redirect users based on some condition when a component renders.
+
+Works in JSX.
+
+Commonly used in:
+
+Protected routes (if not logged in → redirect)
+
+Redirect after certain states (if already logged in → go to dashboard)
+
+404 or fallback routes
+
+
+import { Navigate } from 'react-router-dom';
+
+function ProtectedRoute({ isAuthenticated, children }) {
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
+
+what is call,apply,bind
+-----------------------------------------------------------------------------------------
+
+This is javascript sharing  methods for example 
+we have one object that contains the display name method and we have another object that is have only name so we can used the
+method of object one and displayed the name
+
+const person = {
+    name : "Pooja",
+    greet : function(city,data){
+        console.log(`Hi I am  ${this.name} from ${city} and ${data}`);
+    }
+}
+
+
+const person1 = {name:"komal"};
+const person2 = {name:"Avi"};
+const person3 = {name:"Varsha"};
+
+person.greet.call(person1,"mumbai","nana");
+
+person.greet.apply(person2,["pen"])
+
+const obj2 = person.greet.bind(person3);
+obj2("Pune");
+
+
+-----------------------------------------------------------------------
+
+
+
+
+React Core & Advanced Concepts
+-----------------------------------------------------------------------------
+1)Explain the React component lifecycle. How has it changed with hooks?
+
+1) Mounting -> when comp will create and inserted into DOM that is Mounting
+-> class comp - componentDidMount
+it will run only once when page is load.Suppose we want to display list from API when page load then mounting phase will come 
+2) Updating -> When props and state changed then updating phase will come  -> componentDidUpdate
+3) Unmounting -> Its cleanup.when we remove comp from DOM like (removing listners or cancelling timers) - componentWillUnmount
+Hooks replace componentDidMount, componentDidUpdate,componentWillUnmount with useEffect(()=>{},[])
+
+Lifecycle Stage	 Class Component	    Functional Component with Hooks
+--------------------------------------------------------------------------
+Mount	        componentDidMount()	        useEffect(() => {}, [])
+Update	        componentDidUpdate()	    useEffect(() => {}, [deps])
+Unmount	        componentWillUnmount()	    useEffect(() => { return () => {} }, [])
+State	        this.state, this.setState()	    useState()
+Other features	Class methods, this context	    Hooks (stateless, functional)
+
+
+2) What are the differences between class components and functional components? When would you use one over the other?
+3) How do React hooks like useEffect, useMemo, and useCallback work? Give examples of when to use each.
+4) What are React Context and Redux? When should you use one over the other?
+5) How do you handle side effects in React?
+    ------------------------------
+-> Clean up function - Advantage - Avoid memory leack
+----------------------------------------------------
+
+useEffect(() => {
+  // Your effect
+  return () => {
+    // Cleanup
+  };
+}, []);
+For example, you have a React component that performs a certain action in a setTimeout. 
+Every time the component is shown, it runs the setTimeout function and performs the action in the timeout on that component.
+Assuming You decided to navigate away from this component and into another portion of the app. The component is no longer being rendered, 
+thus there is no need to leave
+ the setTimeout function running in the background. However, the setTimeout function is still running in the background.
+
+ This is where the useEffect cleaning function comes in. In the cleanup function, we can simply add a clearTimeout which clears 
+ the timeout when the component is unmounted (i.e., no longer rendered).
+
+
+ When to use the useEffect cleanup function
+ -------------------------------------------------------------------------------------------------------------------------
+ 1) Fetch requests
+ ---------------------------------
+    When initiating an API request in a component, it is important that we also account for a way to abort the request when the component is unmounted or re-rendered. There are several methods for canceling fetch request calls; we can use the native fetch AbortController or Axios's AbortController (If you are utilizing Axios as our API Client).
+
+    To utilize AbortController, first, create a controller with the AbortController() constructor. When our fetch request is initiated, we pass signal as an option in the request's options object.
+
+    This associates the controller and signals with the fetch request, allowing us to cancel the request call at any time using the AbortController.abort() method. We will then add the AbortController.abort() method to our useEffect cleanup function to ensure that the request is aborted when the component is unmounted or re-rendered.
+
+    Examples of the useCases are displayed below:
+
+2) Timeouts
+-----------------------------
+    For timeouts, you can use the setTimeout(callback, timeInMs) timer function in the useEffect hook, followed by the clearTimeout(timerId) function in the cleanup function. This guarantees that the timer is cleared when the component is unmounted.
+
+    An example of this is displayed below:
+
+    useEffect(() => {
+    let timerId = setTimeout(() => {
+        // perform an action like state update
+        timerId = null;
+    }, 5000);
+
+    // clear the timer when component unmouts
+    return () => clearTimeout(timerId);
+    }, []);
+
+3)Intervals
+-------------------------------
+    The setInterval(callback, timeInMs) function can be declared in the useEffect hook, and the clearInterval(intervalId) function can be added to the cleanup function to handle intervals. By doing this, you can be sure that the timer will stop when the part is unmounted.
+
+    An example of this is displayed below:
+
+    useEffect(() => {
+    let intervalId = setInterval(() => {
+        // perform an action like state update
+        intervalId = null;
+    }, 5000);
+
+    // cleanup the interval when component unmounts
+    return () => clearInterval(interval);
+    }, []);
+
+4)Event Listeners
+-----------------------
+    For event listeners, you can define them in the useEffect callback by attaching the addEventListener function to the element, and then cleanup the listeners by attaching the removeEventListener function to the element on the useEffect cleanup function. This guarantees that the listener is removed from the element when the component is mounted.
+
+    A simple usage of this is displayed in the example below, which is a custom hook for handling click events that occur outside of a certain DOM element, such as a div.
+
+    const useOutsideClick = (callback: () => void) => {
+    const ref = useRef<HTMLElement>();
+
+    useEffect(() => {
+        const handleClick = (event: Event) => {
+        if (ref.current && !ref.current.contains(event.target as Node)) {
+            callback();
+        }
+        };
+
+        document.addEventListener("click", handleClick, true);
+
+        return () => {
+        document.removeEventListener("click", handleClick, true);
+        };
+    }, [callback, ref]);
+
+    return ref;
+    };
+
+
+
+What is event delegation
+--------------------------------------------------------------------------------------------
+Event delegation means add event on parent element instead of adding event on multiple child elements.It workes becuase of event bubbling.
+allowing the parent to handle events triggered by its child elements.
+
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ul>
+
+
+const items = document.querySelectorAll("li");
+
+items.forEach((item) => {
+  item.addEventListener("click", () => {
+    console.log(item.textContent);
+  });
+});
+
+Here we add event listener to every li.
+If there are 1000 items → 1000 listeners.
+Its NOT sufficient
+Instead of this
+
+This is called 
+
+document.querySelector("ul").addEventListener("click", (event) => {
+  if (event.target.tagName === "LI") {
+    console.log(event.target.textContent);
+  }
+});
+
+What is High order function
+-------------------------------------------------------------------------------
+The function accpet another function as a arguments or the functions returns new functions
+tha is called high order function.
+Inbuilt high order function -> map(),reduce(),filter()
+
+
+
+
+
+What is currying function 
+--------------------------------------------
+Currying function means instead of passing argument one by one it returns the function and accpet on argument at time.
+It is highe order function.it returns the function
+---------------------------------------------------------
+
+How many way to create object in js
+------------------------------------------------
+Object literal,new keyword -> new Object, Constructor, Object.assign({},{name:"pooja"})
+
+example
+
+5)Web sockets
+----------------------
+    For WebSockets, When you create a WebSocket connection in a component, you can close it when the component unmounts by including the socket.close() method in the cleanup function.
+
+    An example of this is displayed below:
+
+    useEffect(() => {
+    const ws = new WebSocket(url, protocols);
+    // perform socket related actions
+
+    // cleanup web socket when component unmounts
+    return () => ws.close();
+    }, []);
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+6) Explain how reconciliation works in React and how React decides what to render.
+-> React’s reconciliation process is the way React updates the DOM. When a component’s state or props change, 
+    React creates a new Virtual DOM, compares it with the previous Virtual DOM (diffing), 
+    and applies only the necessary changes to the actual DOM. This makes updates efficient and avoids full re-rendering of the page.
+    What are error boundaries? How do you implement them?
+
+
+7) Axios Interceptors
+------------------------------------------
+An interceptor is a function that runs:
+✅ Before a request is sent (Request Interceptor)
+✅ After a response is received (Response Interceptor)
+
+It allows you to:-
+ -> Attach auth tokens
+ -> Handle errors globally
+ -> Log requests/responses
+ -> Redirect on 401 unauthorized
+
+
+Interceptor in React is usually implemented using Axios interceptors. 
+It allows us to intercept and modify API requests before they are sent and handle responses globally.
+It is commonly used for attaching authentication tokens and handling global errors like 401 unauthorized.
+
+"In React projects, we usually create a separate API configuration file like src/api/axios.js where we configure Axios interceptors. 
+Then we export that Axios instance and use it across services or components so that authentication tokens and global error handling are applied to all API calls."
+
+
+difference between Axios interceptor and middleware
+----------------------------------------------------------------
+
+1️⃣ Middleware (in React / Redux)
+---------------------------------------------------------------------------
+
+Middleware is mainly used in Redux.
+Purpose
+Redux normally accepts only plain object actions.
+------------------------------------------------------------
+Example:
+
+{
+  type: "ADD_USER",
+  payload: user
+}
+
+But when we want to:
+1) call APIs
+2) handle async logic
+3) dispatch multiple actions
+
+we use middleware.
+
+Example middleware libraries:
+-----------------------------------
+1) Redux Thunk
+2) Redux Saga
+3) Redux Toolkit
+
+Example (Redux Thunk)
+export const fetchUsers = () => async (dispatch) => {
+  const response = await api.get("/users");
+
+  dispatch({
+    type: "SET_USERS",
+    payload: response.data
+  });
+};
+
+Here middleware allows async API calls before dispatching action.
+--------------------------------------------------------------------------------------------
+✅ So what you said is correct:
+Redux middleware is used to handle async actions like API calls because Redux normally handles only plain object actions.
+
+
+2️⃣ Interceptor
+-------------------------------------------------
+Interceptor works at the HTTP request/response level.
+--------------------------------------------------
+    ->Usually implemented using Axios.
+        Purpose
+        Intercept:
+
+        API request before sending
+
+        API response after receiving
+
+        Example uses:
+------------------------------------------
+        Attach JWT token
+        Handle 401 errors
+        Log API calls
+
+Example:
+
+axios.interceptors.request.use((config) => {
+  config.headers.Authorization = "Bearer token";
+  return config;
+});
+3️⃣ Key Difference
+Feature	 Interceptor	                  Middleware
+Used in	    Axios / HTTP layer	            Redux
+Purpose 	Modify API request/response	    Handle async logic
+Level	    Network layer	                State management layer
+
+
+Example	
+----------------------------------------------------------------
+Add auth token	
+API call before dispatch
+
+
+
+
+
+Coding questions
+********************************************************************************************************************************************
+1) Find duplicate Elements
+-----------------------------------------------------------------------------------------------------------
+const a = [1,2,3,6,2,1,3];
+const b = [...new Set(a)];
+
+
+const arr = a.filter((ele,index,a1)=>{
+    if(a1.indexOf(ele) === index){
+        return ele;
+    }
+});
+
+console.log(arr);
+2) How to find min and max value from gievn array
+-----------------------------------------------------------------------------------------------------
+
+const arr = [1,9,87,65,655];
+let max = arr[0];
+let min = arr[0];
+for(let x of arr){
+    if(x > max){
+        max = x;
+    }
+}
+
+console.log(max);
+
+for(let y of arr){
+    if(y < min){
+        min = y;
+    }
+}
+
+console.log(min);
+
+
+using Math method
+console.log(Math.max(...arr));
+
+
+Using reduce method
+const y = arr.reduce((m,x)=>{
+    if(x > m){
+        return x;
+    }else{
+        return m;
+    }
+},-Infinity);
+3) How to find second largest value
+****************************************
+
+const arr = [89,77,90,88,12,34,55];
+
+let largestVal = Math.max(...arr);
+
+const secondVal = (largestVal)=>{
+    const largestIndex = arr.indexOf(largestVal);
+    arr.splice(largestIndex,1);
+    return Math.max(...arr);
+}
+
+console.log(secondVal(largestVal));
+
+
+4) find the missing number in given array
+******************************************************************************************
+const arr = [1,2,3,4,5,8,9,10];
+
+const maxVal = Math.max(...arr);
+const minVal = Math.min(...arr);
+
+const missingArray = [];
+
+for(let i = minVal;i<maxVal;i++){
+    if(arr.indexOf(i) < 0){
+        missingArray.push(i);
+    }
+}
+
+console.log(missingArray);
+
+5) How to find even and odd numbers form given array
+******************************************************************************************
+-> const arr = [1,2,3,4,5,8,9,10,11,12,16];
+
+const even = arr.filter((elem)=>{
+    if(elem % 2 == 0){
+        return elem;
+    }
+})
+console.log(even);
+
+const odd = arr.filter((elem)=>{
+    if(elem % 2 != 0){
+        return elem;
+    }
+})
+console.log(odd)
+6) Sum of array
+*************************************************************************************
+const arr = [1,2,3,4,5];
+
+let sumArr = 0;
+
+for(let x of arr){
+    sumArr = sumArr + x;
+}
+
+console.log(sumArr);
+
+we can also used reduce method
+7) Factorial of given number
+***************************************************************************
+const factorial = (n) => {
+    let fact = 1;
+    
+    for(let i = 1; i<= n; i++){
+        fact = fact * i;
+    }
+    return fact;
+}
+
+console.log(factorial(5));
+8) Check number is vowels
+******************************************************************************
+const vowels = ['a','e','i','o','u','s'];
+
+function checkVowels(x){
+    if(vowels.includes(x)){
+        console.log(`Yes ${x} is vowel`);
+    }else{
+        console.log(`No ${x} is vowel`);
+    }
+}
+checkVowels('p');
+8) How to find vowels from string
+***************************************************
+const vowels = ['a','e','i','o','u','s'];
+
+
+
+function checkVowels(str){
+    let i = 0;
+    
+   for(let x of str){
+       if(vowels.includes(x)){
+            i++ 
+       }    
+   }
+   return i;
+}
+console.log(checkVowels('sonal'));
+
+count vowels
+----------------------------------------
+const string = 'pooja';
+
+const vowels = ['a','e','i','o','u','s'];
+const obj = {};
+for(let char of string){
+  if(vowels.includes(char)){
+      if(obj[char] == 1){
+          obj[char] = obj[char] + 1;
+      }else{
+          obj[char] = 1;
+      }
+  }
+}
+console.log(obj);
+
+
+
+
+
+9) reverse string
+***********************************
+let str = "Pooja";
+console.log(str.split("").reverse().join(""));
+
+let str = "pooja";
+
+for(var i =str.length-1;i>=0;i--){
+    console.log(str[i]);
+}
+10) Print the table of any given number
+*********************************************************
+const table = (n) => {
+  for(var i = 1;i<=10;i++){
+    console.log(n*i);
+}  
+}
+
+table(3);
+
+11) How to count no of occurance of character in string
+***********************************************************
+const str = "pooja";
+const occure = {};
+for(let x of str){
+    occure[x] = (occure[x] || 0) + 1;
+   
+}
+
+ console.log(occure);
+
+Find the output 
+let x = 10;
+let y = 20;
+
+[x,y] = [y,x];
+
+console.log(x,y);
+
+*************************************************************************************************************************************************
+
+🔹 Core React Concepts
+-------------------------------------------------------------------------------------
+What are the differences between functional and class components?
+Explain the virtual DOM and how React uses it.
+What is JSX and how does it work under the hood?
+What are React hooks? Name a few and explain their use cases.
+How does the useEffect hook work? What are its dependencies?
+
+
+🔹 State Management
+----------------------------------------------------------------------------------------------------------------------------------------------
+How is state managed in React?
+What are the differences between useState and useReducer?
+How would you lift state up in a component hierarchy?
+What are the pros and cons of using Context API vs Redux?
+Explain how to use useContext with an example.
+
+
+🔹 Component Lifecycle
+----------------------------------------------------------------------------------------------------------------------------------------
+What are the lifecycle methods in class components?
+How do you replicate lifecycle behavior using hooks in functional components?
+What happens during the mounting and unmounting phases?
+
+
+🔹 Performance Optimization
+--------------------------------------------------------------------------------------------------------------------------------------------
+How do you optimize performance in a React application?
+What is memoization in React? How do React.memo, useMemo, and useCallback differ?
+How would you handle unnecessary re-renders?
+
+
+🔹 Routing
+---------------------------------------------------------------------------------------------------------------------------------------------
+How does React Router work?
+What are the differences between BrowserRouter and HashRouter?
+How do you implement nested routes in React Router v6?
+
+
+🔹 Testing
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+How do you test React components using React Testing Library?
+What is the difference between unit testing and integration testing in React?
+How do you mock API calls in your tests?
+
+
+🔹 Advanced Topics
+-------------------------------------------------------------------------------------------------------------------------------------------
+What are Higher-Order Components (HOCs)?
+What are render props and how are they used?
+Explain the concept of portals in React.
+What is reconciliation in React?
+How does React handle error boundaries?
+
+
+🔹 Real-World Scenarios
+---------------------------------------------------------------------------------------------------------------------------------------------
+How would you handle form validation in React?
+How do you manage side effects like API calls?
+How do you structure a large-scale React application?
+How do you handle authentication and protected routes in React?
+
+
+Would you like me to prepare answers or sample code for any of these questions? Or would you prefer a PDF or Word doc version for easy reference?
+
+
+
+
+
+Coersion -> loose equality and strict equality
+------------------------------------------------------------------------------------------
+Summary of conversion direction:
+
+Number vs String → String → Number
+Boolean vs Anything → Boolean → Number -> true -> 1 and false -> 0
+Object vs Primitive → Object → Primitive -> convert object -> tostring -> string to number
+Object vs Object → Compare references (no conversion)
+
+[] => it alway true 
+! => it always convert into value to boolean
+
+
+What is react fibre
+
+React Fiber is React’s new rendering engine (reconciler) introduced in React 16.
+Its purpose is to make React faster, smoother, and more responsive, especially for large or complex UIs.
+Think of Fiber as how React decides when and what to update on the screen.
+
+Why React Fiber was introduced
+Before Fiber (React ≤15):
+
+Rendering was synchronous
+Once React started rendering, it couldn’t stop
+Large updates could freeze the UI (scrolling, typing lag)
+
+👉 Problem: React treated all updates as equally urgent.
+Fiber fixes this.
+
+What Fiber actually is
+React Fiber is:
+
+A new algorithm + data structure that breaks rendering work into small units
+
+Each unit of work is called a Fiber node.
+This allows React to:
+
+Pause work
+Resume later
+Abort work
+Prioritize more important updates
+
+
+Core idea (simple analogy)
+Imagine React rendering like reading a long book:
+Old React
+You must finish the chapter before doing anything else
+❌ Phone rings? Too bad.
+React Fiber
+You can:
+
+Pause mid-page
+Answer the phone
+Continue reading later
+✅ UI stays responsive
+
+
+Key capabilities of React Fiber
+1. Incremental rendering
+React can split work into chunks and process them over multiple frames.
+Plain TextRender part → pause → allow browser work → continueShow more lines
+
+2. Priority-based updates
+Different updates have different urgency:
+
+
+
+
+
+
+
+Update typePriorityUser typingHighAnimationsHighData fetchingMediumBackground updatesLow
+React may delay low-priority renders to keep UI smooth.
+
+3. Better scheduling
+React cooperates with the browser using:
+
+requestIdleCallback
+Frame-based rendering
+Time slicing
+
+This prevents jank and dropped frames.
+
+4. Ability to interrupt rendering
+React can stop rendering if:
+
+New higher-priority update arrives
+User interacts with UI
+
+Old React couldn’t do this.
+
+What is a “Fiber” node?
+A Fiber is a JavaScript object that represents:
+
+A component
+Its props & state
+Its parent, child, and sibling
+What needs to change in the DOM
+
+Example (conceptual):
+JavaScriptfiber = {  type: 'Button',  props: {...},  stateNode: DOMElement,  child: fiber,  sibling: fiber,  return: parentFiber}Show more lines
+This creates a linked list tree, not a recursive stack—so React can pause and resume.
+
+Does Fiber change how you write React?
+✅ Mostly NO
+You still write:
+
+Components
+Hooks
+JSX
+
+Fiber works behind the scenes.
+
+✅ But it enables modern React features
+React Fiber makes these possible:
+
+✅ Hooks
+✅ Concurrent Rendering
+✅ Suspense
+✅ startTransition
+✅ Automatic batching
+
+Without Fiber, these wouldn’t work.
+
+Fiber vs Virtual DOM (important distinction)
+
+
+
+Virtual DOMFiberConceptImplementationDescribes what changedControls how & when it rendersExists for diffingExists for scheduling
+👉 Fiber implements Virtual DOM reconciliation.
+
+Example: High vs Low priority update
+JavaScriptimport { startTransition } from 'react';setInput(text); // high prioritystartTransition(() => {  setSearchResults(results); // low priority});Show more lines
+Thanks to Fiber:
+
+Typing stays smooth
+Results update later if needed
+
+
+Summary (interview‑friendly)
+
+React Fiber is the reconciliation engine introduced in React 16 that allows React to split rendering work, prioritize updates, pause and resume rendering, and keep the UI responsive.
+
+
+
+
+
+
+
+
+
