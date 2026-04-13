@@ -1,0 +1,349 @@
+MongoDB
+--------------------------------
+
+Database
+collection -> table
+document -> row entry
+fields -> colunm
+
+command
+
+1) show dbs -> display Database 
+2) use database_name => used for creating new database and switch to other database
+3) show collection
+4) db.creatCollection => create collection
+5) db.collection(name of collection).find() -> it will display the all data from collections
+    example - db.students.findOne({_id : ObjectId('696a384a22b73f3907628ca0')})
+    findOne record -> will display first match record 
+6) db.collection_name.inserMany() -> It is used to insert multiple documents in the collection.
+7) db.collection.insertOne() -> It is used to insert a single document in the collection.
+8) db.collection.updateOne() -> It is used to update a single document in the collection that satisfy the given criteria.
+9) db.collection.updateMany() -> It is used to update multiple documents in the collection that satisfy the given criteria.
+10)db.collection.replaceOne() -> It is used to replace single document in the collection that satisfy the given criteria.
+11) db.collection.deleteOne() -> It is used to delete a single document from the collection that satisfy the given criteria.
+12) db.collection.deleteMany() -> It is used to delete multiple documents from the collection that satisfy the given criteria.
+
+13) count tottal records in collections = db.students.countDocuments()
+-> count data for particular fields(column) = db.students.countDocuments({department:'PHP'}) - it will count all department students
+
+
+To truncate a MongoDB collection, use:
+------------------------------------------------------------------------
+✔ deleteMany({}) — like SQL TRUNCATE (keeps collection)
+✔ drop() — delete whole collection (like DROP TABLE)
+
+
+13) Projction -> In MongoDB, projection = selecting only specific fields (columns) from a document — just like SQL SELECT column1, column2.
+---------------------------------------------------------------------------------------------------
+-> Select particular fields (column) -> db.collection_name.find({},{name:1,age:1}) -> 1 -> indlude , 0-> exclued
+means display only name and age column suppose _id dont wnat to display then add _id:0
+
+
+
+14) comparison operator
+-------------------------------------------------------
+i) $eq -> values are equal -> {"age":{$eq:20}}
+ii)$neq -> not equal to -> {"age":{$neq:20}}
+iii) $gt -> greater than -> {"age":{$gt:21}}
+iV) $gte -> greater than equal to -> {"age":{$gte:21}}
+v) $lt -> less than {"age":{$lt:21}}
+vi)$lte -> less than equal: {"age":{$lte:21}}
+vii) $in -> in {"age":{$in:21}}
+
+15) Aggregation -> work only with aggregate() function -> db.collection_name.aggregate({})
+------------------------------------------------------------------
+$match -> where condition means filter record
+$group -> group
+$count
+$project
+$lookup
+$sort
+$limit
+$unwind
+$addFields
+$facet
+$replaceRoot
+$set
+$sum
+
+
+find() and match()
+-------------------------------------------------------------------
+If you only want to filter → use find()
+If you want to filter + group + sum + join → use $match
+
+
+Aggregation group -> It is advanced function
+----------------------------------------------------------------
+$group is used to group documents based on a field
+and apply aggregate expressions like:
+
+$sum
+$avg
+$min
+$max
+$push
+$addToSet
+$count (using { $sum: 1 })
+
+👉 It works exactly like SQL GROUP BY.
+
+syntax for grouping
+-----------------------------------------------
+db.collection_name.aggregate([
+    {
+        $group :{
+            _id : <expressions>, -> means our field which we want to group
+            <alias_name>:{ <operator>: "<$field>"}, -> here operator means aggregate function like $count,$sum,$min,$max,$average,$push,$first,$top,
+             <alias_name>:{ <operator>: "<$field>"}
+            
+        }
+    }
+])
+
+Remember $group
+✔ $group → “GROUP BY”
+✔ _id → “GROUP KEY”
+✔ $sum: 1 → “COUNT(*)”
+✔ $sum: "$amount" → “SUM(amount)”
+✔ $avg → average
+✔ $min / $max → smallest / largest
+✔ $push → collect all values into array
+
+i) count(*)
+---------------------------------------------
+db.employees.aggregate([
+  {
+    $group: {
+      _id: "$department",
+      totalEmployees: { $sum: 1 }
+    }
+  }
+]);
+
+=> select count(*) as totalEmployees from employees group by department
+
+ii) SUM field (like SUM(amount))
+-----------------------------------------------------
+db.orders.aggregate([
+  {
+    $group: {
+      _id: "$customerId",
+      totalAmount: { $sum: "$amount" }
+    }
+  }
+]);
+
+iii)AVERAGE (AVG(amount))
+------------------------------------------------------------------
+db.students.aggregate([
+  {
+    $group: {
+      _id: "$department",
+      avgScore: { $avg: "$score" }
+    }
+  }
+]);
+iv) MIN / MAX
+---------------------------------------------------------------
+db.sales.aggregate([
+  {
+    $group: {
+      _id: "$product",
+      maxPrice: { $max: "$price" },
+      minPrice: { $min: "$price" }
+    }
+  }
+]);
+
+
+V) $group + $match (IMPORTANT)
+-------------------------------------------------------------
+Use $match to filter after grouping
+Example:
+Departments where employee count > 10
+-------------------------------------------------------------------------------
+
+db.employees.aggregate([
+  { $group: { _id: "$department", count: { $sum: 1 } } },
+  { $match: { count: { $gt: 10 } } }  // filter grouped results
+]);
+-------------------------------------------------------------------------------------------
+
+Only filter data -find()
+Filter + group -> $match inside aggregate()
+Filter + sum -> $match inside aggregate()
+Filter + count ->$match inside aggregate()
+Filter + join -> $match + $lookup inside aggregate()
+
+
+15) Joins on MongoDB
+---------------------------------------------------------.------
+-In mogoDB have only left join we used $lookup for join 
+-MongoDB always does LEFT JOIN by default,
+-you convert it to INNER JOIN using $match.
+
+1)LEFT join by default
+
+
+db.users.aggregate([
+  {
+    $lookup: {
+      from: "orders",
+      localField: "_id",
+      foreignField: "user_id",
+      as: "orders"
+    }
+  }
+]);
+
+✔ Explanation:
+---------------------------------------------------------------------------
+If matching orders found → array filled
+If no match → "orders": [] (empty array, but user still appears)
+This is LEFT JOIN behavior.
+
+2) Inner join
+---------------------------------------------
+
+db.users.aggregate([
+  {
+    $lookup: {
+      from: "orders",
+      localField: "_id",
+      foreignField: "user_id",
+      as: "orders"
+    }
+  },
+  {
+    $match: {
+      "orders.0": { $exists: true }  // keep only matched records
+    }
+  }
+]);
+
+
+ Explanation:
+------------------------------------------------------------
+$lookup = join
+"orders.0": { $exists: true } = orders array is NOT empty → matching only
+This is exactly INNER JOIN behavior.
+
+
+
+
+
+
+
+
+Mongoose 
+-------------------------------------------------------------------------------------------------------------------
+In node js we used mongoose library for database connectivity between node js and MongoDB
+
+Mongoose is an ODM for MongoDB.
+Instead of manually creating collections and validations in MongoDB, we define schemas in Mongoose.
+MongoDB automatically creates collections when data is inserted so need to run any manual command.
+Mongoose supports relationships using populate, which helps reduce N+1 queries by batching related data fetching.
+
+Laravel Eloquent - 	Mongoose
+--------------------------------------------------------------
+Model	            Model
+Migration	        Schema
+Mutators	        Middleware
+Relationships	    Populate
+Validation	        Schema validation
+Hooks	            pre / post
+
+
+
+
+Purpose of mongoose
+------------------------------------------------------------
+Mongoose provides schema, validation, middleware, and relationship handling for MongoDB, similar to an ORM
+Relationships  = Populate -> Avoid N + 1 queries
+
+
+
+🔥 Mongoose Middleware (Hooks)
+----------------------------------------------------------------------------------------
+Middleware = code that runs automatically before or after a DB operation
+
+Why we need it?
+====================================================================
+1) Cascade delete
+2) Password hashing
+3)Logging
+4)Validation logic
+
+
+
+Interview-Ready Answer (Use This)
+-------------------------------------------------------------
+If interviewer asks:
+
+“Which is better: MySQL or MongoDB?”
+
+Say:
+
+“Neither is universally better. MySQL is better for transactional, relational data like orders and payments, 
+while MongoDB is better for flexible schemas and fast development. The choice depends on data relationships, consistency needs, and scale.”
+
+
+Why MySQL Fits Relations & Transactions
+1️⃣ Strong Relationships
+
+When your data looks like this:
+
+User → Orders
+
+Order → OrderItems
+
+Product → Category
+
+Payment → Order
+
+You need:
+
+Foreign keys
+
+JOINs
+
+Referential integrity
+
+MySQL is designed for this.
+
+2️⃣ Transactions (Very Important)
+
+Example eCommerce flow:
+
+Create order
+
+Deduct product stock
+
+Save payment
+
+If any step fails → rollback everything
+
+This must be atomic.
+
+MySQL gives you:
+
+ACID transactions
+
+Rollback & commit
+
+Data safety
+
+👉 This is harder and riskier to guarantee in MongoDB.
+
+Because MongoDB can also store relations, but:
+
+MongoDB handles them manually
+
+No foreign key enforcement
+
+More responsibility on developer
+
+So the refined rule is:
+
+If relationships and transactions are core to business logic → choose MySQL
